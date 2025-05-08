@@ -19,6 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GranTurismoJPC"
+rootProject.name = "SysTurismoJPC"
 include(":app")
- 

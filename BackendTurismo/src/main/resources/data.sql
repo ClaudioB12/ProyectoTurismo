@@ -1,29 +1,71 @@
-INSERT INTO `upeu_categoria` (`id_categoria`, `nombre`) VALUES
-                                                            (1, 'Juvenil'),
-                                                            (2, 'Adulto');
-INSERT INTO `upeu_marca` (`id_marca`, `nombre`) VALUES
-                                                    (1, 'Puma'),
-                                                    (2, 'AdidasU');
-INSERT INTO `upeu_unid_medida` (`id_unidad`, `nombre_medida`) VALUES
-    (1, 'Unidad');
-INSERT INTO `upeu_producto` (`id_producto`, `nombre`, `pu`, `puold`, `stock`, `stockold`, `utilidad`, `id_categoria`, `id_marca`, `id_unidad`) VALUES
-                                                                                                                                                   (1, 'Zapatilla', 300, 300, 12, 0, 10, 1, 1, 1),
-                                                                                                                                                   (2, 'Zapatillas De Deporte', 100, 10, 10, 10, 10, 1, 1, 1);
-INSERT INTO `upeu_cliente` (`dniruc`, `nombres`, `rep_legal`, `tipo_documento`) VALUES
-    ('43631917', 'David Mamani', 'David Mamani', 'DNI');
-INSERT INTO `upeu_roles` (`id_rol`, `descripcion`, `nombre`) VALUES
-                                                                 (1, 'Administrador', 'ADMIN'),
-                                                                 (2, 'Admin DBA', 'DBA'),
-                                                                 (3, 'Usuario', 'USER');
-INSERT INTO `upeu_usuario` (`id_usuario`, `clave`, `estado`, `user`) VALUES
-    (1, '$2a$10$Fgy9/YB3xri/n8stC889WuzvFRSKgGtYMeFnR2b4iiWyeiaMGdOF2', 'Activo', 'davidmp@upeu.edu.pe');
-INSERT INTO `upeu_usuario_rol` (`rol_id`, `usuario_id`) VALUES
-    (1, 1);
-INSERT INTO `upeu_venta` (`id_venta`, `fecha_gener`, `igv`, `num_doc`, `preciobase`, `preciototal`, `serie`, `tipo_doc`, `dniruc`, `id_usuario`) VALUES
-                                                                                                                                                     (1, '2024-10-21 05:22:32.000000', 45.76, '001', 254.24, 300, 'B01', 'Boleta', '43631917', 1),
-                                                                                                                                                     (2, '2024-10-21 05:27:37.000000', 91.53, '002', 508.47, 600, 'B01', 'Boleta', '43631917', 1),
-                                                                                                                                                     (3, '2024-10-21 22:25:40.000000', 45.76, '003', 254.24, 300, 'B01)', 'Boleta', '43631917', 1);
-INSERT INTO `upeu_venta_detalle` (`id_venta_detalle`, `cantidad`, `descuento`, `pu`, `subtotal`, `id_producto`, `id_venta`) VALUES
-                                                                                                                                (1, 1, 0, 300, 300, 1, 1),
-                                                                                                                                (2, 2, 0, 300, 600, 1, 2),
-                                                                                                                                (3, 3, 0, 100, 300, 2, 3);
+-- Inserción de datos en la tabla Cliente
+INSERT INTO cliente (nombres, apellidos, dni, telefono, correo, direccion, fecha_registro)
+VALUES
+    ('José', 'Quispe', '74185296', '951234567', 'jose.quispe@capachica.pe', 'Comunidad Llachón', CURRENT_TIMESTAMP),
+    ('Ana', 'Cruz', '85296374', '984563214', 'ana.cruz@capachica.pe', 'Isla Tikonata', CURRENT_TIMESTAMP);
+
+-- Inserción de datos en la tabla Destino
+INSERT INTO destino (nombre, descripcion, ubicacion, imagen_url)
+VALUES
+    ('Llachón', 'Hermosa comunidad quechua a orillas del lago Titicaca, conocida por su turismo vivencial.', 'Capachica, Puno', 'llachon.jpg'),
+    ('Isla Tikonata', 'Isla en el lago Titicaca ideal para caminatas, cultura ancestral y paisajes únicos.', 'Capachica, Puno', 'tikonata.jpg');
+
+-- Inserción de datos en la tabla Hospedaje
+INSERT INTO hospedaje (nombre, descripcion, direccion, telefono, precio_por_noche, imagen_url, destino_id)
+VALUES
+    ('Hospedaje Llachón', 'Hospedaje familiar con vista al lago Titicaca y comida típica.', 'Comunidad Llachón, Capachica', '951234567', 60.00, 'hospedaje_llachon.jpg', 1),
+    ('Alojamiento Tikonata', 'Alojamiento rural con actividades culturales en la isla.', 'Isla Tikonata, Capachica', '984563214', 80.00, 'alojamiento_tikonata.jpg', 2);
+
+-- Inserción de datos en la tabla Actividad
+INSERT INTO actividad (nombre, descripcion, duracion, precio)
+VALUES
+    ('Pesca tradicional en Llachón', 'Actividad guiada para conocer técnicas de pesca en el lago.', 180, 25.00),
+    ('Caminata por Tikonata', 'Recorrido guiado por la isla con explicación de su historia y cultura.', 120, 20.00);
+
+-- Inserción de datos en la tabla PaqueteTuristico
+INSERT INTO paquete_turistico (nombre, descripcion, precio, duracion_dias)
+VALUES
+    ('Experiencia Vivencial en Llachón', 'Incluye hospedaje, pesca tradicional y alimentación.', 150.00, 2),
+    ('Aventura Cultural en Tikonata', 'Incluye hospedaje, caminata cultural y alimentación.', 180.00, 2);
+
+-- Relacionando Paquetes con Actividades
+INSERT INTO paquete_actividades (paquete_id, actividad_id)
+VALUES
+    (1, 1),  -- Paquete Vivencial Llachón con Pesca tradicional
+    (2, 2);  -- Paquete Tikonata con Caminata cultural
+
+-- Relacionando Paquetes con Destinos
+INSERT INTO paquete_destinos (paquete_id, destino_id)
+VALUES
+    (1, 1),  -- Paquete Vivencial Llachón con Destino Llachón
+    (2, 2);  -- Paquete Tikonata con Destino Isla Tikonata
+
+-- Inserción de datos en la tabla Restaurante
+INSERT INTO restaurante (nombre, direccion, telefono, descripcion, destino_id)
+VALUES
+    ('Comedor Llachón', 'Sector central, Comunidad Llachón', '951234567', 'Ofrece trucha fresca y platos típicos andinos.', 1),
+    ('Cocina Tikonata', 'Zona norte, Isla Tikonata', '984563214', 'Comida local con insumos cultivados en la isla.', 2);
+
+-- Inserción de datos en la tabla Reseña
+INSERT INTO resena (comentario, calificacion, fecha, cliente_id, paquete_turistico_id)
+VALUES
+    ('Una experiencia única, muy acogedores.', 5, CURRENT_DATE, 1, 1),
+    ('La caminata fue increíble, vistas inolvidables.', 5, CURRENT_DATE, 2, 2);
+
+-- Inserción de datos en la tabla Reserva
+INSERT INTO reserva (fecha_reserva, fecha_inicio, fecha_fin, cantidad_personas, estado, cliente_id, paquete_id, usuario_id)
+VALUES
+    (CURRENT_DATE, CURRENT_DATE, '2025-05-10', 2, 'CONFIRMADA', 1, 1, 1),
+    (CURRENT_DATE, '2025-06-05', '2025-06-07', 1, 'PENDIENTE', 2, 2, 2);
+
+-- Inserción de datos en la tabla CheckIn
+INSERT INTO check_in (cliente_id, fecha_check_in, numero_habitacion, observaciones)
+VALUES
+    (1, CURRENT_TIMESTAMP, 'A1', 'Habitación con vista al lago'),
+    (2, CURRENT_TIMESTAMP, 'B2', 'Alojamiento cerca del muelle');
+
+-- Inserción de datos en la tabla CheckOut
+INSERT INTO check_out (cliente_id, fecha_check_out, numero_habitacion, monto_pago, comentarios)
+VALUES
+    (1, CURRENT_TIMESTAMP, 'A1', 60.00, 'Excelente atención y paisaje.'),
+    (2, CURRENT_TIMESTAMP, 'B2', 80.00, 'Muy buena experiencia cultural.');
