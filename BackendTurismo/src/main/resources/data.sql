@@ -1,3 +1,6 @@
+INSERT INTO `usuario` (`id_usuario`, `contraseña`, `correo`, `rol`) VALUES
+    (1, '$2a$10$3xH86/FINi7tZxuxZx53IesZ0nJndQomWwwpuHZF.IpAp6QBtEyEe', 'claudio.bustinza@upeu.edu.pe', 'ADMIN');
+
 -- Inserción de datos en la tabla Cliente
 INSERT INTO cliente (nombres, apellidos, dni, telefono, correo, direccion, fecha_registro)
 VALUES
