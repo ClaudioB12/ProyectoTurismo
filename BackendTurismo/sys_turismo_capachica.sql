@@ -2,7 +2,7 @@
 CREATE TABLE usuario (
                          id_usuario BIGINT PRIMARY KEY AUTO_INCREMENT,
                          correo VARCHAR(255) NOT NULL UNIQUE,
-                         contraseña VARCHAR(255) NOT NULL,
+                         clave VARCHAR(255) NOT NULL,
                          rol VARCHAR(50)
 );
 

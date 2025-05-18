@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class JwtRequest {
     private String correo;
-    private String contraseña;
+    private String clave;
 }

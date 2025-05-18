@@ -11,6 +11,7 @@ public class Cliente {
     private Long idCliente;
 
     private String nombreCompleto;
+    @Column(unique = true, nullable = false)
     private String correo;
     private String telefono;
     private String direccion;

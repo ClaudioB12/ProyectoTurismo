@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import pe.edu.upeu.sistematurismocapachica.modelo.Usuario;
 import pe.edu.upeu.sistematurismocapachica.repositorio.UsuarioRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Clase S4
 @Service
 @RequiredArgsConstructor
@@ -27,7 +30,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
         return User.builder()
                 .username(usuario.getCorreo())
-                .password(usuario.getContraseña())
+                .password(usuario.getClave())
                 .roles(usuario.getRol())
                 .build();
     }

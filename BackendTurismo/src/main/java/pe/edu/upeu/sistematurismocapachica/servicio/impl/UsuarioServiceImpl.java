@@ -7,6 +7,9 @@ import pe.edu.upeu.sistematurismocapachica.repositorio.UsuarioRepository;
 import pe.edu.upeu.sistematurismocapachica.servicio.IUsuarioService;
 
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import pe.edu.upeu.sistematurismocapachica.dtos.UsuarioDto;
+import pe.edu.upeu.sistematurismocapachica.excepciones.ModelNotFoundException;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -38,6 +41,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }
+
+
 /*@Override
     public UsuarioDto login(UsuarioDto.CredencialesDto credentialsDto) {
         Usuario user = usuarioRepository.findOneByUser(credentialsDto.correo())

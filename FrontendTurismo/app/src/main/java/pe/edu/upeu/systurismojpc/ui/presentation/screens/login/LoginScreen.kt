@@ -52,7 +52,7 @@ fun LoginScreen(
     ) {
         // Fondo
         Image(
-            painter = painterResource(id = R.drawable.capachica), // Usa tu propia imagen
+            painter = painterResource(id = R.drawable.bg), // Usa tu propia imagen
             contentDescription = "Login Background",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()

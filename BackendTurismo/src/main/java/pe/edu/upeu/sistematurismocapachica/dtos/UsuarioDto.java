@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class UsuarioDto {
     private Long idUsuario;
     private String correo;
-    private String contraseña;
+    private String clave;
     private String rol;
     private String token;
     
-    public record CredencialesDto(String correo, String contraseña) { }
+    public record CredencialesDto(String correo, String clave) { }
 
-    public record UsuarioCrearDto(String correo, String contraseña, String rol) { }
+    public record UsuarioCrearDto(String correo, String clave, String rol) { }
 }

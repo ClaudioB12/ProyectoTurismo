@@ -10,4 +10,5 @@ public interface IClienteService {
     void delete(Long id);
     Cliente findById(Long id);
     List<Cliente> findAll();
+    Cliente findByCorreo(String correo);
 }

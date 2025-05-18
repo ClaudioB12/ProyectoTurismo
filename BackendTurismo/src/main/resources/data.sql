@@ -1,4 +1,4 @@
-INSERT INTO `usuario` (`id_usuario`, `contraseña`, `correo`, `rol`) VALUES
+INSERT INTO `usuario` (`id_usuario`, `clave`, `correo`, `rol`) VALUES
     (1, '$2a$10$3xH86/FINi7tZxuxZx53IesZ0nJndQomWwwpuHZF.IpAp6QBtEyEe', 'claudio.bustinza@upeu.edu.pe', 'ADMIN');
 
 -- Inserción de datos en la tabla Cliente

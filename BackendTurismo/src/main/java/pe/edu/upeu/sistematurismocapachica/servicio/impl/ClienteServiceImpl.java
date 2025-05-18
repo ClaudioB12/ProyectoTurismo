@@ -38,4 +38,9 @@ public class ClienteServiceImpl implements IClienteService {
     public List<Cliente> findAll() {
         return clienteRepository.findAll();
     }
+
+    @Override
+    public Cliente findByCorreo(String correo) {
+        return clienteRepository.findByCorreo(correo);
+    }
 }
