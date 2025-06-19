@@ -1,4 +1,4 @@
-package pe.edu.upeu.sistematurismocapachica.control;
+package pe.edu.upeu.sistematurismocapachica.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

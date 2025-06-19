@@ -12,7 +12,8 @@ CREATE TABLE cliente (
                          nombre_completo VARCHAR(255),
                          correo VARCHAR(255),
                          telefono VARCHAR(50),
-                         direccion VARCHAR(255)
+                         direccion VARCHAR(255),
+                         fotoPerfilUrl VARCHAR(255)
 );
 
 -- Tabla Destino

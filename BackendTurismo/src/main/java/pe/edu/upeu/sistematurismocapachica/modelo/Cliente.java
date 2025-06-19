@@ -15,4 +15,7 @@ public class Cliente {
     private String correo;
     private String telefono;
     private String direccion;
+
+    // Nueva propiedad para la foto (ruta o URL)
+    private String fotoPerfilUrl;
 }

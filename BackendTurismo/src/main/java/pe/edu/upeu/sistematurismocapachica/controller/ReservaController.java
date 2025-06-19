@@ -1,4 +1,4 @@
-package pe.edu.upeu.sistematurismocapachica.control;
+package pe.edu.upeu.sistematurismocapachica.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +17,17 @@ public class ReservaController {
 
     @GetMapping("/listar")
     public List<Reserva> listar() {
-        return reservaService.findAll();
+        return reservaService.findAll(); // ✅ devuelve objetos anidados
     }
 
     @PostMapping("/guardar")
     public Reserva guardar(@RequestBody Reserva reserva) {
-        return reservaService.save(reserva);
+        return reservaService.save(reserva); // ✅ recibe objetos anidados
     }
 
     @PutMapping("/editar")
     public Reserva editar(@RequestBody Reserva reserva) {
-        return reservaService.update(reserva);
+        return reservaService.update(reserva); // ✅ recibe objetos anidados
     }
 
     @DeleteMapping("/eliminar/{id}")
@@ -37,6 +37,6 @@ public class ReservaController {
 
     @GetMapping("/buscar/{id}")
     public Reserva buscar(@PathVariable Long id) {
-        return reservaService.findById(id);
+        return reservaService.findById(id); // ✅ devuelve objetos anidados
     }
 }

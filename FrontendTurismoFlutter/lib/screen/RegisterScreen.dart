@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:frontendturismoflutter/security/JwtRequest.dart';
 import 'package:frontendturismoflutter/security/auth_service.dart';
 
@@ -15,6 +18,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController claveController = TextEditingController();
   bool isLoading = false;
 
+  // Control para imagen
+  final ImagePicker _picker = ImagePicker();
+  XFile? _imageFile;
+
+  Future<void> _seleccionarFoto() async {
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = pickedFile;
+      });
+    }
+  }
+
   void _register() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -24,7 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final jwtRequest = JwtRequest(
       correo: correoController.text.trim(),
       clave: claveController.text.trim(),
-      rol: 'USUARIO', // o 'ADMIN' si es necesario
+      rol: 'USUARIO',
     );
 
     final success = await authService.register(jwtRequest);
@@ -36,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('✅ Registro exitoso')),
         );
-        Navigator.pop(context); // Vuelve al login
+        Navigator.pop(context);
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -49,18 +65,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Fondo
         SizedBox.expand(
           child: Image.asset(
             'assets/images/login.png',
             fit: BoxFit.cover,
           ),
         ),
-        // Capa oscura translúcida
-        Container(
-          color: Colors.black.withOpacity(0.5),
-        ),
-        // Contenido principal
+        Container(color: Colors.black.withOpacity(0.5)),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: Center(
@@ -79,6 +90,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        /*GestureDetector(
+                          onTap: _seleccionarFoto,
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.grey[300],
+                            backgroundImage: _imageFile != null
+                                ? FileImage(
+                              File(_imageFile!.path),
+                            )
+                                : null,
+                            child: _imageFile == null
+                                ? const Icon(Icons.camera_alt, size: 40, color: Colors.white)
+                                : null,
+                          ),
+                        ),*/
+                        const SizedBox(height: 16),
                         Text(
                           'Crear Cuenta',
                           style: TextStyle(
@@ -133,8 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: CircularProgressIndicator(
                                 color: Colors.white, strokeWidth: 2),
                           )
-                              : const Icon(Icons.person_add,
-                              color: Colors.white),
+                              : const Icon(Icons.person_add, color: Colors.white),
                           label: Text(
                             isLoading ? 'Registrando...' : 'Registrarse',
                             style: const TextStyle(color: Colors.white),
@@ -153,8 +179,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onPressed: () {
                             Navigator.pushReplacementNamed(context, '/login');
                           },
-                          icon: const Icon(Icons.arrow_back,
-                              color: Colors.white),
+                          icon: const Icon(Icons.arrow_back, color: Colors.white),
                           label: const Text(
                             '¿Ya tienes una cuenta? Inicia sesión',
                             style: TextStyle(
@@ -165,8 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           style: TextButton.styleFrom(
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           ),
                         ),
                       ],

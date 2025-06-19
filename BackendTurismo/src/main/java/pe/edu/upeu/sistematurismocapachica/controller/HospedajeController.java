@@ -1,7 +1,9 @@
-package pe.edu.upeu.sistematurismocapachica.control;
+package pe.edu.upeu.sistematurismocapachica.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upeu.sistematurismocapachica.dtos.HospedajeDto;
+import pe.edu.upeu.sistematurismocapachica.mappers.HospedajeMapper;
 import pe.edu.upeu.sistematurismocapachica.modelo.Hospedaje;
 import pe.edu.upeu.sistematurismocapachica.servicio.IHospedajeService;
 
@@ -17,16 +19,19 @@ public class HospedajeController {
 
     @GetMapping("/listar")
     public List<Hospedaje> listar() {
-        return hospedajeService.findAll();
+        return hospedajeService.findAll(); // 👈 devuelve ENTIDADES con objeto destino anidado
     }
 
     @PostMapping("/guardar")
-    public Hospedaje guardar(@RequestBody Hospedaje hospedaje) {
-        return hospedajeService.save(hospedaje);
+    public HospedajeDto guardar(@RequestBody HospedajeDto hospedajeDto) {
+        Hospedaje hospedaje = HospedajeMapper.toEntity(hospedajeDto);
+        Hospedaje guardado = hospedajeService.save(hospedaje);
+        return HospedajeMapper.toDto(guardado);
     }
 
     @PutMapping("/editar")
-    public Hospedaje editar(@RequestBody Hospedaje hospedaje) {
+    public Hospedaje editar(@RequestBody HospedajeDto hospedajeDto) {
+        Hospedaje hospedaje = HospedajeMapper.toEntity(hospedajeDto);
         return hospedajeService.update(hospedaje);
     }
 

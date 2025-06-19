@@ -13,7 +13,8 @@ public class Hospedaje {
     private String nombre;
     private String descripcion;
     private Double precioPorNoche;
-
+    private Double latitud;
+    private Double longitud;
     @ManyToOne
     @JoinColumn(name = "idDestino")
     private Destino destino;

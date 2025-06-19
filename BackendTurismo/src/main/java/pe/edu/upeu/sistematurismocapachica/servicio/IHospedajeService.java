@@ -9,5 +9,6 @@ public interface IHospedajeService {
     Hospedaje update(Hospedaje hospedaje);
     void delete(Long id);
     Hospedaje findById(Long id);
+    List<Hospedaje> findByDestinoId(Long idDestino);
     List<Hospedaje> findAll();
 }

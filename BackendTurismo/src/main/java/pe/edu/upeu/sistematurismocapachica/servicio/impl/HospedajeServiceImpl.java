@@ -35,6 +35,12 @@ public class HospedajeServiceImpl implements IHospedajeService {
     }
 
     @Override
+    public List<Hospedaje> findByDestinoId(Long idDestino) {
+        return hospedajeRepository.findByDestinoIdDestino(idDestino);
+    }
+
+
+    @Override
     public List<Hospedaje> findAll() {
         return hospedajeRepository.findAll();
     }

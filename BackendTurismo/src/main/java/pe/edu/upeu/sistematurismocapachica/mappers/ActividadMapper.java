@@ -22,10 +22,13 @@ public class ActividadMapper {
         actividad.setDescripcion(dto.getDescripcion());
         actividad.setPrecio(dto.getPrecio());
 
+        System.out.println("ID DESTINO RECIBIDO: " + dto.getIdDestino()); // <- verificación
+
+
         if (dto.getIdDestino() != null) {
             Destino destino = new Destino();
             destino.setIdDestino(dto.getIdDestino());
-            actividad.setDestino(destino);
+            actividad.setDestino(destino); // actualiza la relación correctamente
         }
         return actividad;
     }

@@ -1,21 +1,31 @@
 package pe.edu.upeu.sistematurismocapachica.servicio.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pe.edu.upeu.sistematurismocapachica.dtos.UsuarioDto;
+import pe.edu.upeu.sistematurismocapachica.excepciones.ModelNotFoundException;
+import pe.edu.upeu.sistematurismocapachica.mappers.UsuarioMapper;
 import pe.edu.upeu.sistematurismocapachica.modelo.Usuario;
 import pe.edu.upeu.sistematurismocapachica.repositorio.UsuarioRepository;
 import pe.edu.upeu.sistematurismocapachica.servicio.IUsuarioService;
 
+import java.nio.CharBuffer;
 import java.util.List;
-import org.springframework.http.HttpStatus;
-import pe.edu.upeu.sistematurismocapachica.dtos.UsuarioDto;
-import pe.edu.upeu.sistematurismocapachica.excepciones.ModelNotFoundException;
+import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioMapper usuarioMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Usuario save(Usuario usuario) {
@@ -42,53 +52,29 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return usuarioRepository.findAll();
     }
 
-
-/*@Override
+    @Override
     public UsuarioDto login(UsuarioDto.CredencialesDto credentialsDto) {
-        Usuario user = usuarioRepository.findOneByUser(credentialsDto.correo())
-                .orElseThrow(() -> new ModelNotFoundException("Unknown user", HttpStatus.NOT_FOUND));
+        Usuario user = usuarioRepository.findByCorreo(credentialsDto.correo())
+                .orElseThrow(() -> new ModelNotFoundException("Usuario no encontrado", HttpStatus.NOT_FOUND));
 
         if (passwordEncoder.matches(CharBuffer.wrap(credentialsDto.clave()), user.getClave())) {
-            return userMapper.toDTO(user);
+            return usuarioMapper.toDto(user);
         }
 
-        throw new ModelNotFoundException("Invalid password", HttpStatus.BAD_REQUEST);
+        throw new ModelNotFoundException("Contraseña incorrecta", HttpStatus.BAD_REQUEST);
     }
-*/
 
-
-   /* @Override
-    public UsuarioDTO register(UsuarioDTO.UsuarioCrearDto userDto) {
-        Optional<Usuario> optionalUser = repo.findOneByUser(userDto.user());
+    @Override
+    public UsuarioDto register(UsuarioDto.UsuarioCrearDto userDto) {
+        Optional<Usuario> optionalUser = usuarioRepository.findByCorreo(userDto.correo());
         if (optionalUser.isPresent()) {
-            throw new ModelNotFoundException("Login already exists", HttpStatus.BAD_REQUEST);
-        }
-        Usuario user = userMapper.toEntityFromCADTO(userDto);
-        user.setClave(passwordEncoder.encode(CharBuffer.wrap(userDto.clave())));
-        Usuario savedUser = repo.save(user);
-        Rol r;
-        switch (userDto.rol()){
-            case "ADMIN":{
-                r=rolService.getByNombre(Rol.RolNombre.ADMIN).orElse(null);
-            } break;
-            case "DBA":{
-                r=rolService.getByNombre(Rol.RolNombre.DBA).orElse(null);
-            } break;
-            default:{
-                r=rolService.getByNombre(Rol.RolNombre.USER).orElse(null);
-            } break;
+            throw new ModelNotFoundException("Correo ya registrado", HttpStatus.BAD_REQUEST);
         }
 
-        /*UsuarioRol u=new UsuarioRol();
-        u.setRol(r);
-        u.setUsuario(savedUser);
-        iurService.save(u);
-        
+        Usuario usuario = usuarioMapper.toEntity(userDto); // ✅ Aquí estaba el error
+        usuario.setClave(passwordEncoder.encode(CharBuffer.wrap(userDto.clave())));
+        Usuario savedUser = usuarioRepository.save(usuario);
+        return usuarioMapper.toDto(savedUser);
+    }
 
-        iurService.save(UsuarioRol.builder()
-                .usuario(savedUser)
-                .rol(r)
-                .build());
-        return userMapper.toDTO(savedUser);
-    }    */
 }

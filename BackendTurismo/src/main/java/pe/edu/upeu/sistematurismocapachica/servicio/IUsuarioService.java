@@ -1,9 +1,9 @@
 package pe.edu.upeu.sistematurismocapachica.servicio;
 
 import pe.edu.upeu.sistematurismocapachica.modelo.Usuario;
+import pe.edu.upeu.sistematurismocapachica.dtos.UsuarioDto;
 
 import java.util.List;
-import pe.edu.upeu.sistematurismocapachica.dtos.UsuarioDto;
 
 public interface IUsuarioService {
     Usuario save(Usuario usuario);
@@ -12,6 +12,7 @@ public interface IUsuarioService {
     Usuario findById(Long id);
     List<Usuario> findAll();
 
-   /* UsuarioDto login(UsuarioDto.CredencialesDto credentialsDto);
-    UsuarioDto register(UsuarioDto.UsuarioCrearDto userDto);    */
+    // 🔑 Métodos para autenticación y registro
+    UsuarioDto login(UsuarioDto.CredencialesDto credentialsDto);
+    UsuarioDto register(UsuarioDto.UsuarioCrearDto userDto);
 }

@@ -8,5 +8,8 @@ public class HospedajeDto {
     private String nombre;
     private String descripcion;
     private Double precioPorNoche;
+
+    private Double latitud;
+    private Double longitud;
     private Long idDestino;
 }
